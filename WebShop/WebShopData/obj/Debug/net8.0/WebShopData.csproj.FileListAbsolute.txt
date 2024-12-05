@@ -1,0 +1,14 @@
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/bin/Debug/net8.0/WebShopData.deps.json
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/bin/Debug/net8.0/WebShopData.runtimeconfig.json
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/bin/Debug/net8.0/WebShopData.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/bin/Debug/net8.0/WebShopData.pdb
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/WebShopData.csproj.AssemblyReference.cache
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/WebShopData.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/WebShopData.AssemblyInfoInputs.cache
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/WebShopData.AssemblyInfo.cs
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/WebShopData.csproj.CoreCompileInputs.cache
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/WebShopData.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/refint/WebShopData.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/WebShopData.pdb
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/WebShopData.genruntimeconfig.cache
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/ref/WebShopData.dll
