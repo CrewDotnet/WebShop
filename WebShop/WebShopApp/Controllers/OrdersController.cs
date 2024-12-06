@@ -38,7 +38,6 @@ namespace WebShopApp.Controllers
             return Ok(order);
         }
 
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutOrder(Guid id, OrderRequest orderRequest)
         {
@@ -47,7 +46,6 @@ namespace WebShopApp.Controllers
             return NoContent();
         }
 
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754   
         [HttpPost]
         public async Task<ActionResult<OrderRequest>> PostOrder(OrderRequest orderRequest)
         {

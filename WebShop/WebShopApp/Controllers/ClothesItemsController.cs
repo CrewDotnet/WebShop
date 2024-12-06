@@ -51,14 +51,13 @@ namespace WebShopApp.Controllers
             return NoContent();
         }
 
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<ClothesItemRequest>> PostClothesItem(ClothesItemRequest itemRequest)
         {
-            // ID se automatski generiše u servisu
+            // Id se automatski generise u servisu
             var createdItem = await _service.AddAsync(itemRequest);
             
-            // Vraća se rezultat sa generisanim ID-jem
+            // Vraca se rezultat sa generisanim id
             return CreatedAtAction(nameof(GetClothesItem), new { id = createdItem.Id }, createdItem);
         }
 
