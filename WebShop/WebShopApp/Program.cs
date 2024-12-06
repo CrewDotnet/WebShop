@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using WebShopData.Data;
-using WebShopData.Models;
-using WebShopData.Repositories;
 using WebShopApp.Services;
+using WebShopData.Bootstrap;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,19 +15,11 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 builder.Services.AddAutoMapper(typeof(Program));
 
-builder.Services.AddDbContext<DataContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase")));
+builder.Services.AddPostgreSQL(builder.Configuration.GetConnectionString("WebApiDatabase"));
 
-builder.Services.AddScoped<IClothesRepository, ClothesRepository>();
 builder.Services.AddScoped<IClothesService, ClothesService>();
-
-builder.Services.AddScoped<ITypesRepository, TypesRepository>();
 builder.Services.AddScoped<ITypesService, TypesService>();
-
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddEndpointsApiExplorer();
