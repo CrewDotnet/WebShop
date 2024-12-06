@@ -12,3 +12,4 @@
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/WebShopData.pdb
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/WebShopData.genruntimeconfig.cache
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/ref/WebShopData.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/obj/Debug/net8.0/WebShopData.sourcelink.json

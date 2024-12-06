@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using WebShopApp.Models.ResponseModels;
 using WebShopApp.Models.RequestModels;
 using WebShopApp.Services;
-using WebShopData.Models;
 
 namespace WebShopApp.Controllers
 {
@@ -22,14 +21,14 @@ namespace WebShopApp.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrderRequest>>> GetOrders()
+        public async Task<ActionResult<IEnumerable<OrderResponse>>> GetOrders()
         {
             var orders = await _service.GetAllAsync();
             return Ok(orders);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderRequest>> GetOrder(Guid id)
+        public async Task<ActionResult<OrderResponse>> GetOrder(Guid id)
         {
             var order = await _service.GetByIdAsync(id);
             if (order == null)
@@ -50,7 +49,7 @@ namespace WebShopApp.Controllers
 
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754   
         [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(OrderRequest orderRequest)
+        public async Task<ActionResult<OrderRequest>> PostOrder(OrderRequest orderRequest)
         {
             var createdOrder = await _service.AddAsync(orderRequest);
             return CreatedAtAction(nameof(GetOrder), new { id = createdOrder.Id }, createdOrder);

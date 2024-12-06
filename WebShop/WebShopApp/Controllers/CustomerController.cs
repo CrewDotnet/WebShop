@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using WebShopApp.Models.ResponseModels;
 using WebShopApp.Models.RequestModels;
 using WebShopApp.Services;
-using WebShopData.Models;
 
 namespace WebShopApp.Controllers
 {
@@ -22,14 +21,14 @@ namespace WebShopApp.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<CustomerResponse>>> GetCustomers()
         {
             var customers = await _service.GetAllAsync();
             return Ok(customers);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(Guid id)
+        public async Task<ActionResult<CustomerResponse>> GetCustomer(Guid id)
         {
             var customer = await _service.GetByIdAsync(id);
             if (customer == null)
@@ -50,7 +49,7 @@ namespace WebShopApp.Controllers
 
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754   
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(CustomerRequest customerRequest)
+        public async Task<ActionResult<CustomerRequest>> PostCustomer(CustomerRequest customerRequest)
         {
             var createdCustomer = await _service.AddAsync(customerRequest);
             return CreatedAtAction(nameof(GetCustomer), new { id = createdCustomer.Id }, createdCustomer);

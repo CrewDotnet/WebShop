@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using WebShopApp.Models.ResponseModels;
 using WebShopApp.Models.RequestModels;
 using WebShopApp.Services;
-using WebShopData.Models;
 
 namespace WebShopApp.Controllers
 {
@@ -22,14 +21,14 @@ namespace WebShopApp.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClothesType>>> GetClothesTypes()
+        public async Task<ActionResult<IEnumerable<ClothesTypesResponse>>> GetClothesTypes()
         {
             var types = await _service.GetAllAsync();
             return Ok(types);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ClothesType>> GetClothesType(Guid id)
+        public async Task<ActionResult<ClothesTypesResponse>> GetClothesType(Guid id)
         {
             var type = await _service.GetByIdAsync(id);
             if (type == null)
@@ -50,7 +49,7 @@ namespace WebShopApp.Controllers
 
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754   
         [HttpPost]
-        public async Task<ActionResult<ClothesType>> PostClothesType(ClothesTypeRequest typeRequest)
+        public async Task<ActionResult<ClothesTypeRequest>> PostClothesType(ClothesTypeRequest typeRequest)
         {
             var createdType = await _service.AddAsync(typeRequest);
             return CreatedAtAction(nameof(GetClothesType), new { id = createdType.Id }, createdType);

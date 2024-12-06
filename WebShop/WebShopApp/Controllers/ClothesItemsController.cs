@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using WebShopApp.Models.ResponseModels;
 using WebShopApp.Models.RequestModels;
 using WebShopApp.Services;
-using WebShopData.Models;
 
 namespace WebShopApp.Controllers
 {
@@ -25,14 +24,14 @@ namespace WebShopApp.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClothesItem>>> GetClothesItems()
+        public async Task<ActionResult<IEnumerable<ClothesItemsResponse>>> GetClothesItems()
         {
             var items = await _service.GetAllAsync();
             return Ok(items);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ClothesItem>> GetClothesItem(Guid id)
+        public async Task<ActionResult<ClothesItemsResponse>> GetClothesItem(Guid id)
         {
             var item = await _service.GetByIdAsync(id);
             if (item == null)
@@ -54,7 +53,7 @@ namespace WebShopApp.Controllers
 
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ClothesItem>> PostClothesItem(ClothesItemRequest itemRequest)
+        public async Task<ActionResult<ClothesItemRequest>> PostClothesItem(ClothesItemRequest itemRequest)
         {
             // ID se automatski generiše u servisu
             var createdItem = await _service.AddAsync(itemRequest);

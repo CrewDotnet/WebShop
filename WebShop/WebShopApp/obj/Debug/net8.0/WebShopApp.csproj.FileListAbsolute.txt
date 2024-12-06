@@ -264,3 +264,4 @@
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/obj/Debug/net8.0/ref/WebShopApp.dll
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/WebShopData.dll
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/WebShopData.pdb
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/obj/Debug/net8.0/WebShopApp.sourcelink.json
