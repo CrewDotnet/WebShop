@@ -265,3 +265,6 @@
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/WebShopData.dll
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/WebShopData.pdb
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/obj/Debug/net8.0/WebShopApp.sourcelink.json
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/FluentValidation.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/FluentValidation.AspNetCore.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll

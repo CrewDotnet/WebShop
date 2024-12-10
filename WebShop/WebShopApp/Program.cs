@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using WebShopApp.Services;
 using WebShopData.Bootstrap;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using WebShopApp.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +27,9 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddValidatorsFromAssemblyContaining<ClothesItemRequestValidator>();
+builder.Services.AddFluentValidationAutoValidation();
 
 var app = builder.Build();
 
