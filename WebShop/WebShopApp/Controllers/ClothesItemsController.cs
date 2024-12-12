@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebShopApp.Models.ResponseModels;
 using WebShopApp.Models.RequestModels;
 using WebShopApp.Services;
+using WebShopApp.Models;
 
 namespace WebShopApp.Controllers
 {
@@ -17,60 +18,39 @@ namespace WebShopApp.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClothesItemsResponse>>> GetClothesItems()
+        public async Task<IActionResult> GetClothesItems()
         {
             var result = await _service.GetAllAsync();
-            if (result.IsFailed)
-            {
-                return BadRequest(result.Errors.Select(e => e.Message));
-            }
-            return Ok(result.Value);
+            return ValidatedResultPresenter.Present(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ClothesItemsResponse>> GetClothesItem(Guid id)
+        public async Task<IActionResult> GetClothesItem(Guid id)
         {
             var result = await _service.GetByIdAsync(id);
-            if (result.IsFailed)
-            {
-                return NotFound(result.Errors.Select(e => e.Message));
-            }
-            return Ok(result.Value);
+            return ValidatedResultPresenter.Present(result);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutClothesItem(Guid id, ClothesItemRequest itemRequest)
         {
             var result = await _service.UpdateAsync(id, itemRequest);
-            if (result.IsFailed)
-            {
-                return NotFound(result.Errors.Select(e => e.Message));
-            }
-            return NoContent();
+            return ValidatedResultPresenter.Present(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ClothesItemRequest>> PostClothesItem(ClothesItemRequest itemRequest)
+        public async Task<IActionResult> PostClothesItem(ClothesItemRequest itemRequest)
         {
-            // Id se automatski generise u servisu
             var result = await _service.AddAsync(itemRequest);
-            if (result.IsFailed)
-            {
-                return BadRequest(result.Errors.Select(e => e.Message));
-            }
-            // Vraca se rezultat sa generisanim id
-            return CreatedAtAction(nameof(GetClothesItem), new { id = result.Value.Id }, result.Value);
+            return ValidatedResultPresenter.Present(result);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClothesItem(Guid id)
         {
             var result = await _service.DeleteAsync(id);
-            if (result.IsFailed)
-            {
-                return NotFound(result.Errors.Select(e => e.Message));
-            }
-            return NoContent();
+            return ValidatedResultPresenter.Present(result);
         }
     }
 }
+

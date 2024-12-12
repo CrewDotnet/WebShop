@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using WebShopApp.Models.ResponseModels;
-using WebShopApp.Models.RequestModels;
+using WebShopApp.Models;
 using WebShopApp.Services;
+using WebShopApp.Models.RequestModels;
 
 namespace WebShopApp.Controllers
 {
@@ -11,66 +12,44 @@ namespace WebShopApp.Controllers
     {
         private readonly ICustomerService _service;
 
-        public CustomerController (ICustomerService service)
+        public CustomerController(ICustomerService service)
         {
             _service = service;
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CustomerResponse>>> GetCustomers()
+        public async Task<IActionResult> GetCustomers()
         {
             var result = await _service.GetAllAsync();
-            if (result.IsFailed)
-            {
-                return BadRequest(result.Errors.Select(e => e.Message));
-            }
-            return Ok(result.Value);
+            return ValidatedResultPresenter.Present(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CustomerResponse>> GetCustomer(Guid id)
+        public async Task<IActionResult> GetCustomer(Guid id)
         {
             var result = await _service.GetByIdAsync(id);
-            if (result.IsFailed)
-            {
-                return NotFound(result.Errors.Select(e => e.Message));
-            }
-            return Ok(result.Value);
+            return ValidatedResultPresenter.Present(result);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(Guid id, CustomerRequest customerRequest)
         {
             var result = await _service.UpdateAsync(id, customerRequest);
-            if (result.IsFailed)
-            {
-                return NotFound(result.Errors.Select(e => e.Message));
-            }
-            return NoContent();
+            return ValidatedResultPresenter.Present(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerRequest>> PostCustomer(CustomerRequest customerRequest)
+        public async Task<IActionResult> PostCustomer(CustomerRequest customerRequest)
         {
-            // Id se automatski generise u servisu
             var result = await _service.AddAsync(customerRequest);
-            if (result.IsFailed)
-            {
-                return BadRequest(result.Errors.Select(e => e.Message));
-            }
-            // Vraca se rezultat sa generisanim id
-            return CreatedAtAction(nameof(GetCustomer), new { id = result.Value.Id }, result.Value);
+            return ValidatedResultPresenter.Present(result);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(Guid id)
         {
             var result = await _service.DeleteAsync(id);
-            if (result.IsFailed)
-            {
-                return NotFound(result.Errors.Select(e => e.Message));
-            }
-            return NoContent();
+            return ValidatedResultPresenter.Present(result);
         }
     }
 }

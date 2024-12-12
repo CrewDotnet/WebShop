@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebShopApp.Models.ResponseModels;
 using WebShopApp.Models.RequestModels;
 using WebShopApp.Services;
+using WebShopApp.Models;
 
 namespace WebShopApp.Controllers
 {
@@ -17,69 +18,38 @@ namespace WebShopApp.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrderResponse>>> GetOrders()
+        public async Task<IActionResult> GetOrders()
         {
             var result = await _service.GetAllAsync();
-
-            if (result.IsFailed)
-            {
-                return BadRequest(result.Errors.Select(e => e.Message));
-            }
-
-            return Ok(result.Value);
+            return ValidatedResultPresenter.Present(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderResponse>> GetOrder(Guid id)
+        public async Task<IActionResult> GetOrder(Guid id)
         {
             var result = await _service.GetByIdAsync(id);
-
-            if (result.IsFailed)
-            {
-                return BadRequest(result.Errors.Select(e => e.Message));
-            }
-
-            return Ok(result.Value);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(Guid id, OrderRequest orderRequest)
-        {
-            var result = await _service.UpdateAsync(id, orderRequest);
-
-            if (result.IsFailed)
-            {
-                return BadRequest(result.Errors.Select(e => e.Message));
-            }
-
-            return NoContent();
+            return ValidatedResultPresenter.Present(result);
         }
 
         [HttpPost]
         public async Task<IActionResult> PostOrder(OrderRequest orderRequest)
         {
             var result = await _service.AddAsync(orderRequest);
-
-            if (result.IsFailed)
-            {
-                return BadRequest(result.Errors.Select(e => e.Message));
-            }
-
-            return CreatedAtAction(nameof(GetOrder), new { id = result.Value.Id }, result.Value);
+            return ValidatedResultPresenter.Present(result);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutOrder(Guid id, OrderRequest orderRequest)
+        {
+            var result = await _service.UpdateAsync(id, orderRequest);
+            return ValidatedResultPresenter.Present(result);
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(Guid id)
         {
             var result = await _service.DeleteAsync(id);
-
-            if (result.IsFailed)
-            {
-                return BadRequest(result.Errors.Select(e => e.Message));
-            }
-
-            return NoContent();
+            return ValidatedResultPresenter.Present(result);
         }
     }
 }
