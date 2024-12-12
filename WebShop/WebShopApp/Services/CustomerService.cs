@@ -1,4 +1,6 @@
 using AutoMapper;
+using Azure;
+using FluentResults;
 using WebShopApp.Models.RequestModels;
 using WebShopApp.Models.ResponseModels;
 using WebShopData.Models;
@@ -17,36 +19,58 @@ namespace WebShopApp.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<CustomerResponse>> GetAllAsync()
+        public async Task<Result<IEnumerable<CustomerResponse>>> GetAllAsync()
         {
             var items = await _repository.GetAllAsync();
-            return _mapper.Map<IEnumerable<CustomerResponse>>(items);
+            if (!items.Any())
+            {
+                return Result.Fail<IEnumerable<CustomerResponse>>("No orders found.");
+            }
+            return Result.Ok(_mapper.Map<IEnumerable<CustomerResponse>>(items));
         }
 
-        public async Task<CustomerResponse?> GetByIdAsync(Guid id)
+        public async Task<Result<CustomerResponse?>> GetByIdAsync(Guid id)
         {
             var item = await _repository.GetByIdAsync(id);
-            return _mapper.Map<CustomerResponse?>(item);
+            if (item == null)
+            {
+                return Result.Fail("Item not found.");
+            }
+            var response = _mapper.Map<CustomerResponse?>(item);
+            return Result.Ok(response);
         }
 
-        public async Task<Customer> AddAsync(CustomerRequest customerRequest)
+        public async Task<Result<Customer>> AddAsync(CustomerRequest customerRequest)
         {
             var customer = _mapper.Map<Customer>(customerRequest);
             customer.Id = Guid.NewGuid();
             await _repository.AddAsync(customer);
-            return customer;
+            return Result.Ok(customer);;
         }
 
-        public async Task<bool> UpdateAsync(Guid id, CustomerRequest customerRequest)
+        public async Task<Result> UpdateAsync(Guid id, CustomerRequest customerRequest)
         {
-            var customer = _mapper.Map<Customer>(customerRequest);
-            customer.Id = id; 
-            return await _repository.UpdateAsync(customer);
+            var item = await _repository.GetByIdAsync(id);
+            if (item == null)
+            {
+                return Result.Fail("Item not found.");
+            }
+
+            _mapper.Map(customerRequest, item);
+            await _repository.UpdateAsync(item);
+            return Result.Ok();
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<Result> DeleteAsync(Guid id)
         {
-            return await _repository.DeleteAsync(id);
+            var exists = await _repository.GetByIdAsync(id);
+            if (exists == null)
+            {
+                return Result.Fail("Item not found.");
+            }
+
+            await _repository.DeleteAsync(id);
+            return Result.Ok();
         }
     }
 }

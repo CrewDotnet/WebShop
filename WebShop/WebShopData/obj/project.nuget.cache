@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "aSxJ23CuSP8=",
+  "dgSpecHash": "6qPbos39FBs=",
   "success": true,
   "projectFilePath": "/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopData/WebShopData.csproj",
   "expectedPackageFiles": [
     "/Users/ivana.korpak/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/Users/ivana.korpak/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",
+    "/Users/ivana.korpak/.nuget/packages/fluentresults/3.16.0/fluentresults.3.16.0.nupkg.sha512",
     "/Users/ivana.korpak/.nuget/packages/humanizer/2.14.1/humanizer.2.14.1.nupkg.sha512",
     "/Users/ivana.korpak/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/ivana.korpak/.nuget/packages/humanizer.core.af/2.14.1/humanizer.core.af.2.14.1.nupkg.sha512",

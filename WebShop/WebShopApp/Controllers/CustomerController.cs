@@ -19,42 +19,57 @@ namespace WebShopApp.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CustomerResponse>>> GetCustomers()
         {
-            var customers = await _service.GetAllAsync();
-            return Ok(customers);
+            var result = await _service.GetAllAsync();
+            if (result.IsFailed)
+            {
+                return BadRequest(result.Errors.Select(e => e.Message));
+            }
+            return Ok(result.Value);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CustomerResponse>> GetCustomer(Guid id)
         {
-            var customer = await _service.GetByIdAsync(id);
-            if (customer == null)
+            var result = await _service.GetByIdAsync(id);
+            if (result.IsFailed)
             {
-                return NotFound();
+                return NotFound(result.Errors.Select(e => e.Message));
             }
-            return Ok(customer);
+            return Ok(result.Value);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(Guid id, CustomerRequest customerRequest)
         {
-            var updated = await _service.UpdateAsync(id, customerRequest);
-            if (!updated) return NotFound();
+            var result = await _service.UpdateAsync(id, customerRequest);
+            if (result.IsFailed)
+            {
+                return NotFound(result.Errors.Select(e => e.Message));
+            }
             return NoContent();
         }
 
         [HttpPost]
         public async Task<ActionResult<CustomerRequest>> PostCustomer(CustomerRequest customerRequest)
         {
-            var createdCustomer = await _service.AddAsync(customerRequest);
-            return CreatedAtAction(nameof(GetCustomer), new { id = createdCustomer.Id }, createdCustomer);
+            // Id se automatski generise u servisu
+            var result = await _service.AddAsync(customerRequest);
+            if (result.IsFailed)
+            {
+                return BadRequest(result.Errors.Select(e => e.Message));
+            }
+            // Vraca se rezultat sa generisanim id
+            return CreatedAtAction(nameof(GetCustomer), new { id = result.Value.Id }, result.Value);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(Guid id)
         {
-            var deleted = await _service.DeleteAsync(id);
-            if (!deleted) return NotFound();
-
+            var result = await _service.DeleteAsync(id);
+            if (result.IsFailed)
+            {
+                return NotFound(result.Errors.Select(e => e.Message));
+            }
             return NoContent();
         }
     }
