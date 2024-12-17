@@ -8,9 +8,9 @@ using WebShopData.Models;
 
 namespace WebShopData.Repositories
 {
-        public class ClothesRepository : IClothesRepository
-        {
-            private readonly DataContext _context;
+    public class ClothesRepository : IClothesRepository
+    {
+        private readonly DataContext _context;
 
         public ClothesRepository(DataContext context)
         {
