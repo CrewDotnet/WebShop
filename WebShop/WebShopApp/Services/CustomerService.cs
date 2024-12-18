@@ -1,5 +1,4 @@
 using AutoMapper;
-using Azure;
 using FluentResults;
 using WebShopApp.Models.RequestModels;
 using WebShopApp.Models.ResponseModels;
@@ -13,7 +12,7 @@ namespace WebShopApp.Services
         private readonly ICustomerRepository _repository;
         private readonly IMapper _mapper;
 
-        public CustomerService (ICustomerRepository repository, IMapper mapper)
+        public CustomerService(ICustomerRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -45,7 +44,7 @@ namespace WebShopApp.Services
             var customer = _mapper.Map<Customer>(customerRequest);
             customer.Id = Guid.NewGuid();
             await _repository.AddAsync(customer);
-            return Result.Ok(customer);;
+            return Result.Ok(customer); ;
         }
 
         public async Task<Result> UpdateAsync(Guid id, CustomerRequest customerRequest)
