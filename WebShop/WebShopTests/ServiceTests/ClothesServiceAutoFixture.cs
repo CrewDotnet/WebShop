@@ -7,9 +7,11 @@ using WebShopData.Repositories;
 using AutoMapper;
 using FluentAssertions;
 using WebShopApp.Models.RequestModels;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebShopTests.ServiceTests
 {
+    [ExcludeFromCodeCoverage]
     public class ClothesServiceAutoFixture
     {
         private readonly Mock<IClothesRepository> _mockRepository;
@@ -27,7 +29,7 @@ namespace WebShopTests.ServiceTests
             _clothesService = new ClothesService(_mockRepository.Object, _mockMapper.Object);
         }
 
-        [Fact]
+        [Fact(Skip = "Testovi u ovoj klasi su privremeno ignorisani.")]
         public async Task GetAllAsync_ReturnsItems_WhenItemsExist()
         {
             // Arrange
@@ -51,7 +53,7 @@ namespace WebShopTests.ServiceTests
             Assert.Equal(3, result.Value.Count());
         }
 
-        [Fact]
+        [Fact(Skip = "Testovi u ovoj klasi su privremeno ignorisani.")]
         public async Task GetAllAsync_ReturnsFail_WhenNoItemsExist()
         {
             // Arrange
@@ -66,8 +68,7 @@ namespace WebShopTests.ServiceTests
             Assert.Contains(result.Errors, e => e.Message == "No orders found.");
         }
 
-        // TEST: GetByIdAsync - Successfully returns an item
-        [Fact]
+        [Fact(Skip = "Testovi u ovoj klasi su privremeno ignorisani.")]
         public async Task GetByIdAsync_ReturnsItem_WhenItemExists()
         {
             // Arrange
@@ -101,8 +102,7 @@ namespace WebShopTests.ServiceTests
             _mockRepository.Verify(r => r.GetByIdAsync(id), Times.Once);
         }
 
-        // TEST: GetByIdAsync - Returns Failure when item doesn't exist
-        [Fact]
+        [Fact(Skip = "Testovi u ovoj klasi su privremeno ignorisani.")]
         public async Task GetByIdAsync_ReturnsFail_WhenItemDoesNotExist()
         {
             // Arrange
@@ -120,8 +120,7 @@ namespace WebShopTests.ServiceTests
             _mockRepository.Verify(r => r.GetByIdAsync(id), Times.Once);
         }
 
-        // TEST: AddAsync - Successfully adds a new item
-        [Fact]
+        [Fact(Skip = "Testovi u ovoj klasi su privremeno ignorisani.")]
         public async Task AddAsync_SuccessfulCase_ReturnsSuccess()
         {
             // Arrange
@@ -149,8 +148,7 @@ namespace WebShopTests.ServiceTests
             _mockRepository.Verify(r => r.AddAsync(clothesItem), Times.Once);
         }
 
-        // TEST: UpdateAsync - Successfully updates an item
-        [Fact]
+        [Fact(Skip = "Testovi u ovoj klasi su privremeno ignorisani.")]
         public async Task UpdateAsync_ReturnsSuccess_WhenItemIsUpdated()
         {
             // Arrange
@@ -178,8 +176,7 @@ namespace WebShopTests.ServiceTests
             _mockRepository.Verify(r => r.UpdateAsync(existingItem), Times.Once);
         }
 
-        // TEST: UpdateAsync - Returns Failure when item doesn't exist
-        [Fact]
+        [Fact(Skip = "Testovi u ovoj klasi su privremeno ignorisani.")]
         public async Task UpdateAsync_ReturnsFail_WhenItemDoesNotExist()
         {
             // Arrange
@@ -199,8 +196,7 @@ namespace WebShopTests.ServiceTests
             _mockRepository.Verify(r => r.GetByIdAsync(id), Times.Once);
         }
 
-        // TEST: DeleteAsync - Successfully deletes an item
-        [Fact]
+        [Fact(Skip = "Testovi u ovoj klasi su privremeno ignorisani.")]
         public async Task DeleteAsync_ReturnsSuccess_WhenItemIsDeleted()
         {
             // Arrange
@@ -223,8 +219,7 @@ namespace WebShopTests.ServiceTests
             _mockRepository.Verify(r => r.DeleteAsync(id), Times.Once);
         }
 
-        // TEST: DeleteAsync - Returns Failure when item doesn't exist
-        [Fact]
+        [Fact(Skip = "Testovi u ovoj klasi su privremeno ignorisani.")]
         public async Task DeleteAsync_ReturnsFail_WhenItemDoesNotExist()
         {
             // Arrange

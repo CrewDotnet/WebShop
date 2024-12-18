@@ -5,7 +5,6 @@ using WebShopApp.Models.ResponseModels;
 using WebShopData.Models;
 using WebShopData.Repositories;
 using WebShopApp.Services;
-using Xunit;
 using FluentAssertions;
 
 namespace WebShopTests.ServiceTests
@@ -126,6 +125,83 @@ namespace WebShopTests.ServiceTests
             result.Value.TotalPrice.Should().Be(20);
             _mockCustomerRepository.Verify(c => c.UpdateAsync(customer), Times.Once);
             _mockOrderRepository.Verify(o => o.AddAsync(order), Times.Once);
+        }
+
+        [Fact]
+        public async Task AddAsync_ReturnsFail_WhenClothesItemNotFound()
+        {
+            // Arrange
+            var validCustomerId = Guid.NewGuid();
+            var invalidClothesItemId = Guid.NewGuid();
+
+            var orderRequest = new OrderRequest
+            {
+                CustomerId = validCustomerId,
+                ClothesItemsId = new List<Guid> { invalidClothesItemId }
+            };
+
+            var existingCustomer = new Customer { Id = validCustomerId };
+
+            // Mockovanje Customer-a koji postoji
+            _mockCustomerRepository
+                .Setup(repo => repo.GetByIdAsync(validCustomerId))
+                .ReturnsAsync(existingCustomer);
+
+            //Mockovanje ClothesItem koji NE postoji
+            _mockClothesRepository
+                .Setup(repo => repo.GetByIdAsync(invalidClothesItemId))
+                .ReturnsAsync((ClothesItem)null);
+
+            // Mock za Mapper da ne izazove grešku
+            _mockMapper.Setup(m => m.Map<Order>(orderRequest))
+                .Returns(new Order()); // Bez obzira na scenario vrati prazan order
+
+            // Act
+            var result = await _orderService.AddAsync(orderRequest);
+
+            // Assert
+            result.IsFailed.Should().BeTrue(); // Proveri da li je operacija neuspešna
+            result.Errors.Should().ContainSingle()
+                .Which.Message.Should().Be($"Clothes item with ID {invalidClothesItemId} not found."); // Proveri tačan error message
+
+            _mockOrderRepository.Verify(repo => repo.AddAsync(It.IsAny<Order>()), Times.Never); // Proveri da se AddAsync nije pozvao
+        }
+
+        [Fact]
+        public async Task AddAsync_ReturnsFail_WhenCustomerNotFound()
+        {
+            // Arrange
+            var invalidCustomerId = Guid.NewGuid();
+            var itemId = Guid.NewGuid();
+
+            var orderRequest = new OrderRequest
+            {
+                CustomerId = invalidCustomerId,
+                ClothesItemsId = new List<Guid> { itemId }
+            };
+
+            var existingItem = new ClothesItem { Id = itemId };
+
+            // Mockovanje Item-a koji postoji
+            _mockClothesRepository
+                .Setup(repo => repo.GetByIdAsync(itemId))
+                .ReturnsAsync(existingItem);
+
+            _mockCustomerRepository
+                .Setup(repo => repo.GetByIdAsync(invalidCustomerId))
+                .ReturnsAsync((Customer)null); // Customer ne postoji
+
+            // Mock za Mapper da ne izazove grešku
+            _mockMapper.Setup(m => m.Map<Order>(orderRequest))
+                .Returns(new Order()); // Bez obzira na scenario vrati prazan order
+
+            // Act
+            var result = await _orderService.AddAsync(orderRequest);
+
+            // Assert
+            result.IsFailed.Should().BeTrue();
+            result.Errors.Should().Contain(e => e.Message == "Customer not found.");
+            _mockOrderRepository.Verify(repo => repo.AddAsync(It.IsAny<Order>()), Times.Never);
         }
 
         [Fact]
