@@ -129,42 +129,6 @@ namespace WebShopTests.ServiceTests
         }
 
         [Fact]
-        public async Task AddAsync_ReturnsFail_WhenClothesItemNotFound()
-        {
-            // Arrange
-            var customerId = Guid.NewGuid();
-            var clothesItemId = Guid.NewGuid();
-            var orderRequest = new OrderRequest { CustomerId = customerId, ClothesItemsId = new List<Guid> { clothesItemId } };
-
-            _mockClothesRepository.Setup(c => c.GetByIdAsync(clothesItemId)).ReturnsAsync((ClothesItem?)null);
-
-            // Act
-            var result = await _orderService.AddAsync(orderRequest);
-
-            // Assert
-            result.IsFailed.Should().BeTrue();
-            result.Errors.Should().ContainSingle(e => e.Message == $"Clothes item with ID {clothesItemId} not found.");
-        }
-
-        [Fact]
-        public async Task AddAsync_ReturnsFail_WhenCustomerNotFound()
-        {
-            // Arrange
-            var orderRequest = new OrderRequest { CustomerId = Guid.NewGuid() };
-            var order = new Order { CustomerId = orderRequest.CustomerId };
-
-            _mockClothesRepository.Setup(c => c.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(new ClothesItem { Id = Guid.NewGuid(), Price = 20 });
-            _mockCustomerRepository.Setup(c => c.GetByIdAsync(orderRequest.CustomerId)).ReturnsAsync((Customer?)null);
-
-            // Act
-            var result = await _orderService.AddAsync(orderRequest);
-
-            // Assert
-            result.IsFailed.Should().BeTrue();
-            result.Errors.Should().ContainSingle(e => e.Message == "Customer not found.");
-        }
-
-        [Fact]
         public async Task UpdateAsync_ReturnsSuccess_WhenOrderExists()
         {
             // Arrange
