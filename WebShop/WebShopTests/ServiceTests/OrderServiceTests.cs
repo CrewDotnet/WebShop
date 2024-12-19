@@ -128,6 +128,60 @@ namespace WebShopTests.ServiceTests
         }
 
         [Fact]
+        public async Task AddAsync_AppliesDiscountAndResetsHasDiscount_WhenCustomerHasDiscount()
+        {
+            // Arrange
+            var customerId = Guid.NewGuid();
+            var itemId = Guid.NewGuid();
+            var clothesItem = new ClothesItem { Id = itemId, Price = 2000 }; // Cena bez popusta
+            var orderRequest = new OrderRequest
+            {
+                CustomerId = customerId,
+                ClothesItemsId = new List<Guid> { itemId }
+            };
+
+            var customer = new Customer
+            {
+                Id = customerId,
+                TotalSpent = 4000,
+                HasDiscount = true, // Postoji popust koji treba da se primeni
+                OrdersCount = 1
+            };
+
+            var expectedOrder = new Order
+            {
+                Id = Guid.NewGuid(),
+                CustomerId = customerId,
+                TotalPrice = clothesItem.Price - 1000 // Primeni popust od 1000
+            };
+
+            // Mock ClothesItem repo
+            _mockClothesRepository
+                .Setup(repo => repo.GetByIdAsync(itemId))
+                .ReturnsAsync(clothesItem);
+
+            // Mock Customer repo
+            _mockCustomerRepository
+                .Setup(repo => repo.GetByIdAsync(customerId))
+                .ReturnsAsync(customer);
+
+            // Mock Mapiranje
+            _mockMapper
+                .Setup(mapper => mapper.Map<Order>(orderRequest))
+                .Returns(expectedOrder);
+
+            // Act
+            var result = await _orderService.AddAsync(orderRequest);
+
+            // Assert
+            result.IsSuccess.Should().BeTrue();
+            result.Value.TotalPrice.Should().Be(1000); // 2000 - 1000 popust
+            customer.HasDiscount.Should().BeFalse(); // Proveri da je HasDiscount resetovan
+            _mockCustomerRepository.Verify(repo => repo.UpdateAsync(customer), Times.Once);
+            _mockOrderRepository.Verify(repo => repo.AddAsync(It.IsAny<Order>()), Times.Once);
+        }
+
+        [Fact]
         public async Task AddAsync_ReturnsFail_WhenClothesItemNotFound()
         {
             // Arrange
@@ -257,7 +311,6 @@ namespace WebShopTests.ServiceTests
             result.IsSuccess.Should().BeTrue();
             _mockOrderRepository.Verify(o => o.DeleteAsync(id), Times.Once);
         }
-
 
         [Fact]
         public async Task DeleteAsync_ReturnsFail_WhenOrderDoesNotExist()
