@@ -13,5 +13,6 @@ namespace WebShopData.Repositories
         Task AddAsync(Customer customer);
         Task<bool> UpdateAsync(Customer customer);
         Task<bool> DeleteAsync(Guid id);
+        Task<bool> CustomerExistsByNameAsync(string name);
     }
 }

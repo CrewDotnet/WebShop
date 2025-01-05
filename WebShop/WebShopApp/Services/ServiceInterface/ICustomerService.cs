@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FluentResults;
 using WebShopApp.Models.RequestModels;
 using WebShopApp.Models.ResponseModels;
@@ -16,5 +12,6 @@ namespace WebShopApp.Services
         Task<Result<Customer>> AddAsync(CustomerRequest customerRequest);
         Task<Result> UpdateAsync(Guid id, CustomerRequest customerRequest);
         Task<Result> DeleteAsync(Guid id);
+        Task FetchAndSaveCustomersAsync();
     }
 }

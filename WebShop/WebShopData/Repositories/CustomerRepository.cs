@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebShopData.Data;
 using WebShopData.Models;
@@ -12,7 +8,7 @@ namespace WebShopData.Repositories
     {
         private readonly DataContext _context;
 
-        public CustomerRepository (DataContext context)
+        public CustomerRepository(DataContext context)
         {
             _context = context;
         }
@@ -41,6 +37,10 @@ namespace WebShopData.Repositories
             if (customer == null) return false;
             _context.Customers.Remove(customer);
             return await _context.SaveChangesAsync() > 0;
+        }
+        public async Task<bool> CustomerExistsByNameAsync(string name)
+        {
+            return await _context.Customers.AnyAsync(c => c.Name == name);
         }
     }
 }

@@ -25,6 +25,8 @@ builder.Services.AddScoped<ITypesService, TypesService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 
+builder.Services.AddHttpClient<CustomerClient>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -38,6 +40,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var customerService = scope.ServiceProvider.GetRequiredService<ICustomerService>();
+    await customerService.FetchAndSaveCustomersAsync(); // Povuci i popuni podatke
 }
 
 app.UseHttpsRedirection();

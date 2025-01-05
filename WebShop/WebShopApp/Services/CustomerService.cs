@@ -11,13 +11,27 @@ namespace WebShopApp.Services
     {
         private readonly ICustomerRepository _repository;
         private readonly IMapper _mapper;
+        private readonly CustomerClient _customerClient;
 
-        public CustomerService(ICustomerRepository repository, IMapper mapper)
+        public CustomerService(ICustomerRepository repository, IMapper mapper, CustomerClient customerClient)
         {
             _repository = repository;
             _mapper = mapper;
+            _customerClient = customerClient;
         }
+        public async Task FetchAndSaveCustomersAsync()
+        {
+            var customersFromApi = await _customerClient.GetCustomersFromApiAsync();
 
+            foreach (var apiCustomer in customersFromApi)
+            {
+                if (!await _repository.CustomerExistsByNameAsync(apiCustomer.Name))
+                {
+                    var customer = _mapper.Map<Customer>(apiCustomer);
+                    await _repository.AddAsync(customer);
+                }
+            }
+        }
         public async Task<Result<IEnumerable<CustomerResponse>>> GetAllAsync()
         {
             var items = await _repository.GetAllAsync();
@@ -42,9 +56,8 @@ namespace WebShopApp.Services
         public async Task<Result<Customer>> AddAsync(CustomerRequest customerRequest)
         {
             var customer = _mapper.Map<Customer>(customerRequest);
-            customer.Id = Guid.NewGuid();
             await _repository.AddAsync(customer);
-            return Result.Ok(customer); ;
+            return Result.Ok(customer);
         }
 
         public async Task<Result> UpdateAsync(Guid id, CustomerRequest customerRequest)
