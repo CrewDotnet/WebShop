@@ -1,10 +1,11 @@
 using System.Net.Http;
 using System.Text.Json;
 using WebShopApp.Models.RequestModels;
+using WebShopApp.Services.ServiceInterface;
 
 namespace WebShopApp.Services
 {
-    public class CustomerClient
+    public class CustomerClient : ICustomerClient
     {
         private readonly HttpClient _httpClient;
 
@@ -25,7 +26,6 @@ namespace WebShopApp.Services
             }
 
             var content = await response.Content.ReadAsStringAsync();
-
             var customers = JsonSerializer.Deserialize<List<CustomerRequest>>(content);
 
             return customers ?? new List<CustomerRequest>();

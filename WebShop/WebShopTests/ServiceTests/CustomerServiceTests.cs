@@ -6,6 +6,7 @@ using WebShopData.Repositories;
 using Moq;
 using FluentAssertions;
 using WebShopApp.Services;
+using WebShopApp.Services.ServiceInterface;
 
 namespace WebShopTests.ServiceTests
 {
@@ -13,13 +14,54 @@ namespace WebShopTests.ServiceTests
     {
         private readonly Mock<ICustomerRepository> _mockRepository;
         private readonly Mock<IMapper> _mockMapper;
+        private readonly Mock<ICustomerClient> _mockCustomerClient;
         private readonly CustomerService _customerService;
 
         public CustomerServiceTests()
         {
             _mockRepository = new Mock<ICustomerRepository>();
             _mockMapper = new Mock<IMapper>();
-            _customerService = new CustomerService(_mockRepository.Object, _mockMapper.Object);
+            _mockCustomerClient = new Mock<ICustomerClient>();
+
+            _customerService = new CustomerService(_mockRepository.Object, _mockMapper.Object, _mockCustomerClient.Object);
+        }
+
+        [Fact]
+        public async Task FetchAndSaveCustomersAsync_SavesCustomer_WhenHeIsNotInTable()
+        {
+            // Arrange: Mock API podataka
+            var apiCustomers = new List<CustomerRequest>
+            {
+                new() { Name = "John Doe" },
+                new() { Name = "Jane Smith" }
+            };
+
+            _mockCustomerClient
+                .Setup(client => client.GetCustomersFromApiAsync())
+                .ReturnsAsync(apiCustomers);
+
+            _mockRepository
+                .Setup(repo => repo.CustomerExistsByNameAsync("John Doe"))
+                .ReturnsAsync(true);
+            _mockRepository
+                .Setup(repo => repo.CustomerExistsByNameAsync("Jane Smith"))
+                .ReturnsAsync(false);
+
+            // Mock - Mapiranje klijent requesta na model
+            _mockMapper
+                .Setup(m => m.Map<Customer>(It.Is<CustomerRequest>(cr => cr.Name == "Jane Smith")))
+                .Returns(new Customer { Name = "Jane Smith" });
+
+            // Mock - Poziv metode AddAsync
+            _mockRepository
+                .Setup(repo => repo.AddAsync(It.IsAny<Customer>()))
+                .Returns(Task.CompletedTask);
+
+            // Act: Poziv servisa
+            await _customerService.FetchAndSaveCustomersAsync();
+
+            // Assert: Provera da li je `AddAsync` pozvan tačno jednom za Jane Smith
+            _mockRepository.Verify(repo => repo.AddAsync(It.IsAny<Customer>()), Times.Once);
         }
 
         [Fact]

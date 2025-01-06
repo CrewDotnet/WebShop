@@ -4,6 +4,7 @@ using WebShopData.Bootstrap;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using WebShopApp.Validators;
+using WebShopApp.Services.ServiceInterface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,8 @@ builder.Services.AddScoped<IClothesService, ClothesService>();
 builder.Services.AddScoped<ITypesService, TypesService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ICustomerClient, CustomerClient>();
+
 
 builder.Services.AddHttpClient<CustomerClient>();
 

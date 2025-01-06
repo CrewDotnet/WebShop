@@ -14,7 +14,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_Name_ShouldHaveValidationError_WhenEmpty()
+        public void Name_ShouldHaveValidationError_WhenEmpty()
         {
             var model = new CustomerRequest { Name = string.Empty };
             var result = _validator.TestValidate(model);
@@ -23,7 +23,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_Name_ShouldHaveValidationError_WhenTooShort()
+        public void Name_ShouldHaveValidationError_WhenTooShort()
         {
             var model = new CustomerRequest { Name = "Jo" };
             var result = _validator.TestValidate(model);
@@ -32,7 +32,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_Name_ShouldHaveValidationError_WhenTooLong()
+        public void Name_ShouldHaveValidationError_WhenTooLong()
         {
             var model = new CustomerRequest { Name = "ThisNameIsDefinitelyTooLong" };
             var result = _validator.TestValidate(model);
@@ -41,7 +41,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_Name_ShouldNotHaveValidationError_WhenValid()
+        public void Name_ShouldNotHaveValidationError_WhenValid()
         {
             var model = new CustomerRequest { Name = "Alice" };
             var result = _validator.TestValidate(model);

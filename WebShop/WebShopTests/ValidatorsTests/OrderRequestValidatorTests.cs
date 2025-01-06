@@ -14,7 +14,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_CustomerId_ShouldHaveValidationError_WhenEmpty()
+        public void CustomerId_ShouldHaveValidationError_WhenEmpty()
         {
             var model = new OrderRequest { CustomerId = Guid.Empty, ClothesItemsId = new List<Guid> { Guid.NewGuid() } };
             var result = _validator.TestValidate(model);
@@ -23,7 +23,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_CustomerId_ShouldNotHaveValidationError_WhenValid()
+        public void CustomerId_ShouldNotHaveValidationError_WhenValid()
         {
             var model = new OrderRequest { CustomerId = Guid.NewGuid(), ClothesItemsId = new List<Guid> { Guid.NewGuid() } };
             var result = _validator.TestValidate(model);
@@ -31,7 +31,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_ClothesItemsId_ShouldHaveValidationError_WhenEmpty()
+        public void ClothesItemsId_ShouldHaveValidationError_WhenEmpty()
         {
             var model = new OrderRequest { CustomerId = Guid.NewGuid(), ClothesItemsId = new List<Guid>() };
             var result = _validator.TestValidate(model);
@@ -40,7 +40,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_ClothesItemsId_ShouldHaveValidationError_WhenContainsEmptyGuid()
+        public void ClothesItemsId_ShouldHaveValidationError_WhenContainsEmptyGuid()
         {
             var model = new OrderRequest { CustomerId = Guid.NewGuid(), ClothesItemsId = new List<Guid> { Guid.NewGuid(), Guid.Empty } };
             var result = _validator.TestValidate(model);
@@ -49,7 +49,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_ClothesItemsId_ShouldNotHaveValidationError_WhenAllAreValid()
+        public void ClothesItemsId_ShouldNotHaveValidationError_WhenAllAreValid()
         {
             var model = new OrderRequest { CustomerId = Guid.NewGuid(), ClothesItemsId = new List<Guid> { Guid.NewGuid(), Guid.NewGuid() } };
             var result = _validator.TestValidate(model);

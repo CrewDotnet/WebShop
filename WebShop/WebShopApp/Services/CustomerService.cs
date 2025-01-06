@@ -2,6 +2,7 @@ using AutoMapper;
 using FluentResults;
 using WebShopApp.Models.RequestModels;
 using WebShopApp.Models.ResponseModels;
+using WebShopApp.Services.ServiceInterface;
 using WebShopData.Models;
 using WebShopData.Repositories;
 
@@ -11,9 +12,9 @@ namespace WebShopApp.Services
     {
         private readonly ICustomerRepository _repository;
         private readonly IMapper _mapper;
-        private readonly CustomerClient _customerClient;
+        private readonly ICustomerClient _customerClient;
 
-        public CustomerService(ICustomerRepository repository, IMapper mapper, CustomerClient customerClient)
+        public CustomerService(ICustomerRepository repository, IMapper mapper, ICustomerClient customerClient)
         {
             _repository = repository;
             _mapper = mapper;

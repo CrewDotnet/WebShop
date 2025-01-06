@@ -14,7 +14,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_Name_ShouldHaveValidationError_WhenEmpty()
+        public void Name_ShouldHaveValidationError_WhenEmpty()
         {
             var model = new ClothesItemRequest { Name = string.Empty };
             var result = _validator.TestValidate(model);
@@ -23,7 +23,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_Price_ShouldHaveValidationError_WhenZeroOrNegative()
+        public void Price_ShouldHaveValidationError_WhenZeroOrNegative()
         {
             var model = new ClothesItemRequest { Price = -1 };
             var result = _validator.TestValidate(model);
@@ -32,7 +32,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_ClothesTypeId_ShouldHaveValidationError_WhenEmptyGuid()
+        public void ClothesTypeId_ShouldHaveValidationError_WhenEmptyGuid()
         {
             var model = new ClothesItemRequest { ClothesTypeId = Guid.Empty };
             var result = _validator.TestValidate(model);
@@ -41,7 +41,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_Name_ShouldNotHaveValidationError_WhenValid()
+        public void Name_ShouldNotHaveValidationError_WhenValid()
         {
             var model = new ClothesItemRequest { Name = "T-shirt" };
             var result = _validator.TestValidate(model);
@@ -49,7 +49,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_ShouldNotHaveAnyValidationError_WhenValid()
+        public void ShouldNotHaveAnyValidationError_WhenValid()
         {
             var model = new ClothesItemRequest
             {

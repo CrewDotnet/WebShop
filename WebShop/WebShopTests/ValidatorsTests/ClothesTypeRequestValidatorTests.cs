@@ -14,7 +14,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_Type_ShouldHaveValidationError_WhenEmpty()
+        public void Type_ShouldHaveValidationError_WhenEmpty()
         {
             var model = new ClothesTypeRequest { Type = string.Empty };
             var result = _validator.TestValidate(model);
@@ -23,7 +23,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_Type_ShouldHaveValidationError_WhenTooShort()
+        public void Type_ShouldHaveValidationError_WhenTooShort()
         {
             var model = new ClothesTypeRequest { Type = "ab" };
             var result = _validator.TestValidate(model);
@@ -32,7 +32,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_Type_ShouldHaveValidationError_WhenTooLong()
+        public void Type_ShouldHaveValidationError_WhenTooLong()
         {
             var model = new ClothesTypeRequest { Type = "ThisIsWayTooLongTypeeeee" };
             var result = _validator.TestValidate(model);
@@ -41,7 +41,7 @@ namespace WebShopTests.ValidatorsTests
         }
 
         [Fact]
-        public void Validate_Type_ShouldNotHaveValidationError_WhenValid()
+        public void Type_ShouldNotHaveValidationError_WhenValid()
         {
             var model = new ClothesTypeRequest { Type = "T-shirt" };
             var result = _validator.TestValidate(model);
