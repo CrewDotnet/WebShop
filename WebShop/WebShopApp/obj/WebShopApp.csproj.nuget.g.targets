@@ -7,5 +7,7 @@
     <Import Project="$(NuGetPackageRoot)mono.texttemplating/3.0.0/buildTransitive/Mono.TextTemplating.targets" Condition="Exists('$(NuGetPackageRoot)mono.texttemplating/3.0.0/buildTransitive/Mono.TextTemplating.targets')" />
     <Import Project="$(NuGetPackageRoot)microsoft.codeanalysis.analyzers/3.3.4/buildTransitive/Microsoft.CodeAnalysis.Analyzers.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.codeanalysis.analyzers/3.3.4/buildTransitive/Microsoft.CodeAnalysis.Analyzers.targets')" />
     <Import Project="$(NuGetPackageRoot)microsoft.extensions.apidescription.server/6.0.5/build/Microsoft.Extensions.ApiDescription.Server.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.extensions.apidescription.server/6.0.5/build/Microsoft.Extensions.ApiDescription.Server.targets')" />
+    <Import Project="$(NuGetPackageRoot)refit/8.0.0/buildTransitive/netstandard2.0/refit.targets" Condition="Exists('$(NuGetPackageRoot)refit/8.0.0/buildTransitive/netstandard2.0/refit.targets')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.extensions.configuration.binder/8.0.0/buildTransitive/netstandard2.0/Microsoft.Extensions.Configuration.Binder.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.extensions.configuration.binder/8.0.0/buildTransitive/netstandard2.0/Microsoft.Extensions.Configuration.Binder.targets')" />
   </ImportGroup>
 </Project>

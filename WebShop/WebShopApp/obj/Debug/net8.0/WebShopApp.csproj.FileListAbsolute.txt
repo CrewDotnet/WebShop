@@ -269,3 +269,8 @@
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/obj/Debug/net8.0/WebShopApp.pdb
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/obj/Debug/net8.0/WebShopApp.genruntimeconfig.cache
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/obj/Debug/net8.0/ref/WebShopApp.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/Microsoft.Extensions.Diagnostics.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/Microsoft.Extensions.Diagnostics.Abstractions.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/Microsoft.Extensions.Http.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/Refit.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/Refit.HttpClientFactory.dll
