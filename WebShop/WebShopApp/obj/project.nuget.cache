@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "YuYuyMncQB0=",
+  "dgSpecHash": "H9qZWHh5UDQ=",
   "success": true,
   "projectFilePath": "/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/WebShopApp.csproj",
   "expectedPackageFiles": [
@@ -62,6 +62,9 @@
     "/Users/ivana.korpak/.nuget/packages/humanizer.core.zh-cn/2.14.1/humanizer.core.zh-cn.2.14.1.nupkg.sha512",
     "/Users/ivana.korpak/.nuget/packages/humanizer.core.zh-hans/2.14.1/humanizer.core.zh-hans.2.14.1.nupkg.sha512",
     "/Users/ivana.korpak/.nuget/packages/humanizer.core.zh-hant/2.14.1/humanizer.core.zh-hant.2.14.1.nupkg.sha512",
+    "/Users/ivana.korpak/.nuget/packages/mediatr/11.0.0/mediatr.11.0.0.nupkg.sha512",
+    "/Users/ivana.korpak/.nuget/packages/mediatr.contracts/1.0.1/mediatr.contracts.1.0.1.nupkg.sha512",
+    "/Users/ivana.korpak/.nuget/packages/mediatr.extensions.microsoft.dependencyinjection/11.1.0/mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",
     "/Users/ivana.korpak/.nuget/packages/microsoft.aspnetcore.razor.language/6.0.24/microsoft.aspnetcore.razor.language.6.0.24.nupkg.sha512",
     "/Users/ivana.korpak/.nuget/packages/microsoft.bcl.asyncinterfaces/7.0.0/microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
     "/Users/ivana.korpak/.nuget/packages/microsoft.build/17.10.4/microsoft.build.17.10.4.nupkg.sha512",

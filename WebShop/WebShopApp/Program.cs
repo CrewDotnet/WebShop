@@ -6,6 +6,7 @@ using FluentValidation;
 using WebShopApp.Validators;
 using WebShopApp.Services.ServiceInterface;
 using Refit;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,7 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddRefitClient<ICustomerClient>().ConfigureHttpClient(c => c.BaseAddress = new Uri("https://jsonplaceholder.typicode.com"));
+builder.Services.AddMediatR(typeof(Program));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

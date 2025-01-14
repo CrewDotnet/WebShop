@@ -274,3 +274,6 @@
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/Microsoft.Extensions.Http.dll
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/Refit.dll
 /Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/Refit.HttpClientFactory.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/MediatR.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/MediatR.Contracts.dll
+/Users/ivana.korpak/Desktop/WebApiGit/WebShop/WebShopApp/bin/Debug/net8.0/MediatR.Extensions.Microsoft.DependencyInjection.dll
